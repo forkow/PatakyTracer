@@ -52,13 +52,18 @@ function startGame() {
 
                 if (packet.packetColor == currentColor) {
                     $gameStatDropped.innerText -= -1;
+                    document.getElementById('drop-sound').play();
                 }
 
+                
+                document.getElementById('packet-sound').play();
                 fallSpeed += 0.001;
             } else if (touchPc(pc, packet) && pc.active) {
                 $gamePlay.removeChild(packet);
                 packets.splice(i, 1);
                 if (packet.packetColor == pc.pcColor) {
+                    document.getElementById('catch-sound').play();
+
                     if (Math.random() > 0.5) {
                         fallSpeed += 0.25;
                     } else {
@@ -67,10 +72,12 @@ function startGame() {
                     $gameStatOk.innerText -= -1;
                 } else {
                     $gameStatDropped.innerText -= -1;
+                    document.getElementById('drop-sound').play();
                 }
             }
 
             if ($gameStatDropped.innerText >= MAX_DROPPED) {
+                document.getElementById('death-sound').play();
                 gameOver();
                 return;
             }
